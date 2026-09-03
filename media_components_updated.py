@@ -1,5 +1,5 @@
 """
-media_components.py  (v3 -- literature-grounded extract composition,
+media_components_updated.py  (v5 -- literature-grounded extract composition,
                             corrected ion bounds, menaquinone removed)
 
 CHANGES FROM v2, AND WHY
