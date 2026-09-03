@@ -189,9 +189,26 @@ class CultureMedium:
 # ----------------------------------------------------------------------
 # Amino acid / vitamin / trace element / nucleotide id groups
 # ----------------------------------------------------------------------
-AMINO_ACIDS = ["ala_L", "asn_L", "asp_L", "cys_L", "gln_L", "glu_L", "gly", "his_L",
-               "ile_L", "leu_L", "lys_L", "met_L", "phe_L", "pro_L", "ser_L",
-               "thr_L", "trp_L", "tyr_L", "val_L"]
+AMINO_ACIDS = {
+    "ala_L": 4.8 / 100,
+    "arg_L ": 3.2 / 100,
+    "asp_L": 6.5 / 100,
+    "cys_L": 0.6 / 100,
+    "glu_L": 11.5 / 100,
+    "gly": 3 / 100,
+    "his_L": 1.4 / 100,
+    "ile_L": 3.1 / 100,
+    "leu_L": 4.2 / 100,
+    "lys_L": 4.6 / 100,
+    "met_L": 0.9 / 100,
+    "phe_L": 2.6 / 100,
+    "pro_L": 2.3 / 100,
+    "ser_L": 2.4 / 100,
+    "thr_L": 2.6 / 100,
+    "trp_L": 0.9 / 100,
+    "tyr_L": 1.1 / 100,
+    "val_L": 4.1 / 100,
+}
 
 YEAST_PROTEIN_G_PER_100G = 71.5
 
@@ -199,45 +216,43 @@ YEAST_PROTEIN_G_PER_100G = 71.5
 # relative mg/kg weights from the yeast-extract spec sheet can be applied
 # per vitamin rather than uniformly.
 VITAMIN_GROUPS_G_PER_100G = {
-    "thm": 110 / 10000,       # B1 thiamine, midpoint of 100-120 mg/kg
-    "ribflv": 100 / 10000,    # B2 riboflavin, midpoint of 80-120 mg/kg
-    "pnto_R": 160 / 10000,    # B5 pantothenate, midpoint of 120-200 mg/kg
-    "pydxn": 70 / 10000,      # B6 pyridoxine, midpoint of 60-80 mg/kg
-    "pydx": 70 / 10000,       # B6 pyridoxal form, same midpoint (isoform)
-    "pydam": 70 / 10000,      # B6 pyridamine form, same midpoint (isoform)
-    "nac": 1000 / 10000,      # B3/PP niacin, midpoint of 900-1100 mg/kg
-    "cbl1": 0.01 / 10000,     # B12, midpoint of 5-15 ug/kg
+    "thm": 21 / 1000000,       # B1 thiamine, midpoint of 100-120 mg/kg
+    "ribflv": 125 / 1000000,    # B2 riboflavin, midpoint of 80-120 mg/kg
+    "pnto_R": 105 / 1000000,    # B5 pantothenate, midpoint of 120-200 mg/kg
+    "pydxn": 24 / 1000000,      # B6 pyridoxine, midpoint of 60-80 mg/kg
+    "pydx": 70 / 1000000,       # B6 pyridoxal form, same midpoint (isoform)
+    "pydam": 70 / 1000000,      # B6 pyridamine form, same midpoint (isoform)
+    "nac": 600 / 1000000,      # B3/PP niacin, midpoint of 900-1100 mg/kg
+    "cbl1": 3 / 1000000,     # B12, midpoint of 5-15 ug/kg
     # Category-level only (no cited mg/kg figure) -- kept well below the
     # smallest CITED vitamin (B12) rather than above it, since "present but
     # not singled out for quantification" should not outweigh vitamins that
     # WERE specifically measured.
-    "fol": 0.002 / 10000,
-    "btn": 0.002 / 10000,
-    "thf": 0.002 / 10000,
-    "5mthf": 0.002 / 10000,
-    "adocbl": 0.01 / 10000,   # tied to B12's cited weight (coenzyme form of same vitamin)
-    "4abz": 0.002 / 10000,
-    "dpcoa": 0.002 / 10000,
+    "fol": 6 / 1000000,
+    "btn": 4 / 1000000,
+    "thf": 0.002 / 1000000,
+    "5mthf": 0.002 / 1000000,
+    "adocbl": 0.01 / 1000000,   
+    "4abz": 0.002 / 1000000,
+    "dpcoa": 0.002 / 1000000,
 }
 
 # Trace metals with a real, cited mg/100g dw figure from the brewer's-yeast
 # extract composition paper.
 YEAST_TRACE_METALS_G_PER_100G = {
-    "zn2": 11.9 / 1000,     # mg/100g -> g/100g
-    "fe2": 1.76 / 1000,
-    "fe3": 1.76 / 1000,     # same total iron pool, split across both oxidation states in the model
-    "mn2": 0.564 / 1000,
-    # Named only as "trace elements present", no cited figure -- kept below
-    # the smallest CITED metal (Mn) rather than above it, same principle as
-    # the uncited vitamins above.
-    "cobalt2": 0.0002,
-    "cu2": 0.0002,
+    "zn2": 13.6 / 100000,     
+    "fe2": 1.76 / 100000,
+    "fe3": 1.76 / 10000,     
+    "mn2": 8 / 10000,
+    
+    "cobalt2": 0.05 / 100000,
+    "cu2": 0.3 / 100000,
 }
 # Nucleotide-related exchanges -- meat extract's characteristic/named
 # component (inosine and inosinic acid specifically), yeast extract's is
 # present but not singled out as characteristic the way it is for meat extract.
 NUCLEOTIDES = ["ade", "gua", "hxan", "xan", "orot"]
-NUCLEOTIDE_G_PER_100G = 0.5  # modest, unquantified-in-sources placeholder
+NUCLEOTIDE_G_PER_100G = 0.0001  # modest, unquantified-in-sources placeholder
 
 
 def _weighted_profile(id_weight_map: Dict[str, float], base: str = "e", scale: float = 1.0) -> Dict[str, float]:
@@ -273,7 +288,7 @@ def build_bifidobacterium_mrs_medium(background_na_level: str = "low") -> Cultur
     """
     # ---- yeast extract profile: real relative weights from cited sources ----
     yeast_profile: Dict[str, float] = {}
-    yeast_profile.update(_uniform_profile(AMINO_ACIDS, weight=YEAST_PROTEIN_G_PER_100G/ len(AMINO_ACIDS)))          # dominant mass fraction, protein 66.8-76.3%
+    yeast_profile.update(_weighted_profile(AMINO_ACIDS))          # dominant mass fraction, protein 66.8-76.3%
     yeast_profile.update(_weighted_profile(VITAMIN_GROUPS_G_PER_100G))     # mg/kg figures scaled down relative to amino acids
     yeast_profile.update(_weighted_profile(YEAST_TRACE_METALS_G_PER_100G)) # mg/100g dw figures, small relative weight
     yeast_profile.update(_uniform_profile(NUCLEOTIDES, weight=NUCLEOTIDE_G_PER_100G))          # present, not the extract's defining feature
@@ -282,26 +297,26 @@ def build_bifidobacterium_mrs_medium(background_na_level: str = "low") -> Cultur
     # ---- vitamins at low/category weight, NO trace metals (undocumented) ----
     MEAT_PROTEIN_G_PER_100G_ESTIMATE = 60.0  # order-of-magnitude estimate, not individually cited
     meat_profile: Dict[str, float] = {}
-    meat_profile.update(_uniform_profile(AMINO_ACIDS, weight=MEAT_PROTEIN_G_PER_100G_ESTIMATE / len(AMINO_ACIDS)))           # documented: "peptides, individual amino acids"
-    meat_profile.update(_uniform_profile(NUCLEOTIDES, weight=(NUCLEOTIDE_G_PER_100G * 2) / len(NUCLEOTIDES)))  # 2x yeast's -- documented as characteristic of meat extract specifically        # documented characteristic component (inosine/inosinic acid)
+    meat_profile.update(_weighted_profile(AMINO_ACIDS))        # documented: "peptides, individual amino acids"
+    #meat_profile.update(_uniform_profile(NUCLEOTIDES, weight=(NUCLEOTIDE_G_PER_100G * 2) / len(NUCLEOTIDES)))  # 2x yeast's -- documented as characteristic of meat extract specifically        # documented characteristic component (inosine/inosinic acid)
     meat_profile.update(_weighted_profile(VITAMIN_GROUPS_G_PER_100G, scale=0.3))     # documented only as "some vitamins" -- CATEGORY-LEVEL, low weight
     # no YEAST_TRACE_METALS entries here -- deliberately absent, not an oversight
 
     components: List[MediaComponent] = [
-        SimpleComponent("Glucose", "EX_glc_D(e)", cost_per_unit=0.1, lb=0.0, ub=27.36, category="carbon"),
-        SimpleComponent("Phosphate (K2HPO4)", "EX_pi(e)", cost_per_unit=0.1, lb=0.0, ub=2.0, category="ion_major"),
-        SimpleComponent("Ammonium (from triammonium citrate)", "EX_nh4(e)", cost_per_unit=0.12, lb=0.0, ub=2.0, category="ion_major"),
+        SimpleComponent("Glucose", "EX_glc_D(e)", cost_per_unit=0.0148, lb=0.0, ub=27.00, category="carbon"),
+        SimpleComponent("Phosphate (K2HPO4)", "EX_pi(e)", cost_per_unit=0.28, lb=0.0, ub=2.0, category="ion_major"),
+        SimpleComponent("Ammonium (from triammonium citrate)", "EX_nh4(e)", cost_per_unit=0.0950, lb=0.0, ub=2.0, category="ion_major"),
 
         # Sodium tied to its only real recipe source (sodium acetate), 1:1
         # stoichiometry from CH3COONa -- see build_bifidobacterium_mrs_medium
         # docstring for the background_na_level regimes tested alongside this.
         MultiSimpleComponent("Acetate (sodium acetate)", {"EX_ac(e)": 1.0, "EX_na1(e)": 1.0},
-                              cost_per_unit=0.07, lb=0.0, ub=5.0, category="ion_major"),
+                              cost_per_unit=0.01094, lb=0.0, ub=5.0, category="ion_major"),
 
         MultiSimpleComponent("Magnesium sulfate (MgSO4)", {"EX_mg2(e)": 1.0, "EX_so4(e)": 1.0},
-                              cost_per_unit=0.06, lb=0.0, ub=0.8, category="ion_major"),
+                              cost_per_unit=0.0137, lb=0.0, ub=0.8, category="ion_major"),
         MultiSimpleComponent("Manganese sulfate (MnSO4)", {"EX_mn2(e)": 1.0, "EX_so4(e)": 1.0},
-                              cost_per_unit=0.3, lb=0.0, ub=0.09, category="ion_trace_expensive"),
+                              cost_per_unit=0.2301, lb=0.0, ub=0.09, category="ion_trace_expensive"),
 
         # Peptone: kept as the uniform amino-acid-only profile from v2 --
         # peptone is a defined-process partial protein hydrolysate (not an
@@ -309,13 +324,13 @@ def build_bifidobacterium_mrs_medium(background_na_level: str = "low") -> Cultur
         # consistently describe it as free amino acids + short peptides
         # without a distinct vitamin/mineral profile, so no change here.
         CompositeComponent("Peptone level", _uniform_profile(AMINO_ACIDS, weight=1.0),
-                            cost_per_unit=0.2, lb=0.0, ub=10.0, category="extract"),
+                            cost_per_unit=0.1640, lb=0.0, ub=10.0, category="extract"),
 
         CompositeComponent("Meat extract level", meat_profile,
-                            cost_per_unit=0.18, lb=0.0, ub=5.0, category="extract"),
+                            cost_per_unit=0.3952, lb=0.0, ub=8.0, category="extract"),
 
         CompositeComponent("Yeast extract level", yeast_profile,
-                            cost_per_unit=0.3, lb=0.0, ub=19.5, category="extract"),
+                            cost_per_unit=0.1315, lb=0.0, ub=1000.0, category="extract"),
     ]
 
     fixed_open = [
